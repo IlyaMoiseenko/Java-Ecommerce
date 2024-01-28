@@ -4,6 +4,7 @@ package by.moiseenko.javaecommerce.domain;
     @author Ilya Moiseenko on 28.01.24
 */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,5 +35,6 @@ public class Address {
     private String addressLine;
 
     @ManyToMany(mappedBy = "addresses")
+    @JsonIgnore
     private List<User> users;
 }
