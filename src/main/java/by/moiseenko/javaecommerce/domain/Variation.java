@@ -5,9 +5,17 @@ package by.moiseenko.javaecommerce.domain;
 */
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tb_variation")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Variation {
 
     @Id
