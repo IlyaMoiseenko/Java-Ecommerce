@@ -11,10 +11,7 @@ import by.moiseenko.javaecommerce.service.VariationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,16 +31,16 @@ public class VariationController {
         );
     }
 
-    @GetMapping("/n")
-    public ResponseEntity<Variation> getByName(@RequestParam(value = "name", required = true) String name) {
+    @GetMapping("/name/{variationName}")
+    public ResponseEntity<Variation> getByName(@PathVariable("variationName") String name) {
         return new ResponseEntity<>(
                 variationService.getByName(name),
                 HttpStatus.OK
         );
     }
 
-    @GetMapping("/c")
-    public ResponseEntity<List<Variation>> getAllByCategory(@RequestParam(value = "category", required = true) String categoryName) {
+    @GetMapping("/category/{categoryName}")
+    public ResponseEntity<List<Variation>> getAllByCategory(@PathVariable("categoryName") String categoryName) {
         ProductCategory category = categoryService.getByName(categoryName);
 
         return new ResponseEntity<>(
