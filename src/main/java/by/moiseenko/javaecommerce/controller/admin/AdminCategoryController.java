@@ -8,6 +8,7 @@ import by.moiseenko.javaecommerce.domain.ProductCategory;
 import by.moiseenko.javaecommerce.domain.dto.request.CategoryToCreateRequest;
 import by.moiseenko.javaecommerce.mapper.CategoryMapper;
 import by.moiseenko.javaecommerce.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class AdminCategoryController {
     private final CategoryMapper categoryMapper;
 
     @PostMapping
-    public ResponseEntity<ProductCategory> createNewCategory(@RequestBody CategoryToCreateRequest request) {
+    public ResponseEntity<ProductCategory> createNewCategory(@RequestBody @Valid CategoryToCreateRequest request) {
         ProductCategory category = categoryMapper.categoryToCreateRequestToCategory(request);
 
         return new ResponseEntity<>(

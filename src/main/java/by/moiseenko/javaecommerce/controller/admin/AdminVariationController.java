@@ -8,6 +8,7 @@ import by.moiseenko.javaecommerce.domain.Variation;
 import by.moiseenko.javaecommerce.domain.dto.request.VariationToCreateRequest;
 import by.moiseenko.javaecommerce.mapper.VariationMapper;
 import by.moiseenko.javaecommerce.service.VariationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class AdminVariationController {
     private final VariationMapper variationMapper;
 
     @PostMapping
-    public ResponseEntity<Variation> createNewVariation(@RequestBody VariationToCreateRequest request) {
+    public ResponseEntity<Variation> createNewVariation(@RequestBody @Valid VariationToCreateRequest request) {
         Variation variation = variationMapper.variationToCreateRequestToVariation(request);
 
         return new ResponseEntity<>(
