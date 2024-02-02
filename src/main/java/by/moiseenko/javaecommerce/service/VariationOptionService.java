@@ -19,28 +19,29 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class VariationOptionService {
 
     private final VariationOptionRepository variationOptionRepository;
 
-    @Transactional(readOnly = true)
+    @Transactional
+    public VariationOption createNewVariationOption(VariationOption variationOption) {
+        return variationOptionRepository.save(variationOption);
+    }
+
+    public List<VariationOption> getAll() {
+        return variationOptionRepository.findAll();
+    }
+
     public VariationOption getByValue(String value) {
         return variationOptionRepository.findByValue(value)
                 .orElseThrow(() -> new EntityNotFoundException(VariationOption.class, Map.of("value", value)));
     }
 
-    @Transactional(readOnly = true)
-    public List<VariationOption> getAllByValues(String[] values) {
-        List<VariationOption> variationOptions = new ArrayList<>();
-
-        for (String value : values)
-            variationOptions.add(getByValue(value));
-
-        return variationOptions;
+    public List<VariationOption> getAllByVariation(Variation variation) {
+        return variationOptionRepository.findAllByVariation(variation);
     }
 
-    @Transactional(readOnly = true)
     public VariationOption getByValueAndVariation(String value, Variation variation) {
         return variationOptionRepository.findByValueAndVariation(value, variation)
                 .orElseThrow(() -> new EntityNotFoundException(VariationOption.class, Map.of("value", value, "variation", variation.getName())));
