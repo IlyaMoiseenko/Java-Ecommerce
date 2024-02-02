@@ -36,8 +36,8 @@ public class ProductController {
         );
     }
 
-    @GetMapping("/n")
-    public ResponseEntity<Page<Product>> getAllByNameContaining(@RequestParam(value = "name", required = true) String name,
+    @GetMapping("/name/{productName}")
+    public ResponseEntity<Page<Product>> getAllByNameContaining(@PathVariable("productName") String name,
                                                                 @RequestParam(value = "page", required = true, defaultValue = "0") int page,
                                                                 @RequestParam(value = "size", required = true, defaultValue = "5") int size) {
         return new ResponseEntity<>(
@@ -46,8 +46,8 @@ public class ProductController {
         );
     }
 
-    @GetMapping("/c")
-    public ResponseEntity<Page<Product>> getAllCategoryName(@RequestParam(value = "categoryName", required = true) String categoryName,
+    @GetMapping("/category/{categoryName}")
+    public ResponseEntity<Page<Product>> getAllCategoryName(@PathVariable("categoryName") String categoryName,
                                                             @RequestParam(value = "page", required = true, defaultValue = "0") int page,
                                                             @RequestParam(value = "size", required = true, defaultValue = "3") int size) {
         return new ResponseEntity<>(
