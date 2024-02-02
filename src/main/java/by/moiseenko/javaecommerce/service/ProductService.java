@@ -6,7 +6,9 @@ package by.moiseenko.javaecommerce.service;
 
 import by.moiseenko.javaecommerce.domain.Product;
 import by.moiseenko.javaecommerce.domain.ProductCategory;
+import by.moiseenko.javaecommerce.domain.dto.request.ProductRequest;
 import by.moiseenko.javaecommerce.exception.EntityNotFoundException;
+import by.moiseenko.javaecommerce.mapper.ProductMapper;
 import by.moiseenko.javaecommerce.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,10 @@ import java.util.Map;
 public class ProductService {
 
     private final ProductRepository productRepository;
+
+    public Product createNewProduct(Product product) {
+        return productRepository.save(product);
+    }
 
     @Transactional(readOnly = true)
     public Product getById(Long id) {

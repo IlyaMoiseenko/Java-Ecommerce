@@ -5,6 +5,7 @@ package by.moiseenko.javaecommerce.controller;
 */
 
 import by.moiseenko.javaecommerce.domain.dto.response.Error;
+import by.moiseenko.javaecommerce.exception.EntityNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -46,6 +47,14 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
         }
 
         return buildResponseEntity(new Error(HttpStatus.INTERNAL_SERVER_ERROR, ex));
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException e) {
+        return new ResponseEntity<>(
+                "Message: " + e.getMessage(),
+                HttpStatus.BAD_REQUEST
+        );
     }
 
     private ResponseEntity<Object> buildResponseEntity(Error apiError) {
