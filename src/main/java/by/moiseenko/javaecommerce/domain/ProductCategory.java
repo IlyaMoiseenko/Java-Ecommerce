@@ -24,4 +24,8 @@ public class ProductCategory {
 
     @Column(name = "name")
     private String  name;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_promotion_id")
+    private Promotion promotion;
 }

@@ -5,10 +5,7 @@ package by.moiseenko.javaecommerce.domain;
 */
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,6 +31,9 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Transient
+    private BigDecimal discountPrice;
+
     @Column(name = "qty_in_stock")
     private int inStock;
 
@@ -48,4 +48,15 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "fk_variation_option_id", referencedColumnName = "id")
     )
     private List<VariationOption> variationOptions;
+
+    public BigDecimal getDiscountPrice() {
+        if (category.getPromotion() != null) {
+            int discountRate = category.getPromotion().getDiscountRate();
+
+            BigDecimal discount = price.multiply(BigDecimal.valueOf(discountRate)).divide(BigDecimal.valueOf(100));
+            discountPrice = price.subtract(discount);
+        }
+
+        return discountPrice;
+    }
 }
