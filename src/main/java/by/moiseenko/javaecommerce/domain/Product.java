@@ -49,6 +49,9 @@ public class Product {
     )
     private List<VariationOption> variationOptions;
 
+    @OneToMany(mappedBy = "product")
+    private List<UserReview> reviews;
+
     public BigDecimal getDiscountPrice() {
         if (category.getPromotion() != null) {
             int discountRate = category.getPromotion().getDiscountRate();
